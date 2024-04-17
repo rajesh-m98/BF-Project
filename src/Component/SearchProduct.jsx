@@ -1,44 +1,34 @@
-const SearchProduct = () => {
-    return (
-        <>
-            <section>
-                <div class="container">
-                    <div class="product-filter-main-wrapper float_left ptb-0 mt-4">
-                        <div class="container">
-                            <div class="heading-title about-text float_left d-grid  gap-2 d-sm-flex justify-content-sm-start">
-                                <h5>Deliaura Specilals (Offers Available)</h5>
-                                <img class="img-fluid" src="images/line-yal.png" alt="img" />
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-12">
-                                    <div class="custom-tbs-content float_left">
-                                        <div id="Beef" class="tabcontent" style="display: block;">
-                                            <div class="product-new-filter-block">
-                                                {/* fetching products */}
-                                                <?php
-                                                //calling products function
-                                                cart();
-                                                search_product();
-                                                get_unique_categories();
+// SearchProduct.jsx
+import React from 'react';
 
-                          ?>
-                                            </div>
-                                            <div class="center-btn">
-                                                <a href="product-left-sidebar.html">View All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-        </>
-    )
-}
+const SearchProduct = ({ searchResults }) => {
+  return (
+    <div>
+      <h2 className='mx-2 mt-3' style={{fontSize:'18px'}}>Search Results</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Dish</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Add to Cart</th>
+          </tr>
+        </thead>
+        <tbody>
+          {searchResults.map(product => (
+            <tr key={product.id}>
+              <td><img src={product.img} alt={product.dish} style={{ width: '50px', height: '50px' }} /></td>
+              <td>{product.dish}</td>
+              <td>{product.Title}</td>
+              <td>{product.Price}</td>
+              <td><button className="btn btn-primary">Add to Cart</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default SearchProduct;

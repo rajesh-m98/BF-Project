@@ -29,6 +29,10 @@ import Review2 from "./images/review-2.avif"
 
 const EggAddCart = () => {
 
+    let setDataString = sessionStorage.getItem('setData');
+    let setData = JSON.parse(setDataString);
+
+
     const settings = {
         autoplay: true,
         slidesToShow: 4,
@@ -287,14 +291,14 @@ const EggAddCart = () => {
                                 <div className="col-lg-6">
                                     <div className="border rounded">
                                         <a href="#">
-                                            <img src={E1} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
+                                            <img src={setData.img} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
                                         </a>
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
-                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>Premium Mackerel [Bangda/ Kanangeluthi/ Kanakatha/ Ayala Small] - Whole, Cleaned</h6>
-                                    <p className="category mb-3" id={styles.cart_category}>Category: Fish</p>
-                                    <h5 className="price fw-bold mb-3" id={styles.cart_price}>₹ 815</h5>
+                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>{setData.dish}</h6>
+                                    <p className="category mb-3" id={styles.cart_category}>Category: {setData.Title}</p>
+                                    <h5 className="price fw-bold mb-3" id={styles.cart_price}>₹ {setData.Price}</h5>
                                     <div className="d-flex mb-2" id={styles.cart_ratings} >
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
@@ -302,7 +306,7 @@ const EggAddCart = () => {
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                                         <FontAwesomeIcon icon={faStarHalfStroke}></FontAwesomeIcon>
                                     </div>
-                                    <p className="mb-2"><small>Deliaura of chicken, straight from the farm. No antibiotics, growth promoting hormones or any of the bad stuff. Naturally reared for tastier meat. Cleaned and cut in a state-of-the-art HACCP certified processing centre.</small></p>
+                                    <p className="mb-2"><small>{setData.description}</small></p>
                                     <div className="input-group quantity mb-3" id={styles.cart_buttonGroup}>
                                         <div className="input-group-btn">
                                             <button className="btn rounded-circle btn-borderless border p-1 text-white py-0" id={styles.cart_button} onClick={decrementQuantity}>
@@ -426,9 +430,10 @@ const EggAddCart = () => {
                     </div>
                 </div>
             </div>
+
             {/* Rlated products*/}
 
-            <div className="container mb-5">
+            < div className="container mb-5" >
                 <h6 className="fw-bold mx-3">Related products</h6>
                 <Slider {...settings} className={`container ${styles.slickslider}`}>
                     <div className={`card ${styles.card}`}>
@@ -673,4 +678,4 @@ const EggAddCart = () => {
 
 }
 
-export default EggAddCart
+export default EggAddCart;

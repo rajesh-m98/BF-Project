@@ -22,7 +22,7 @@ import R4 from "./images/readytocook/r4.jpg"
 import R1 from "./images/readytocook/r1.jpg"
 import F3 from "./images/Fish/fish3.jpg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faIndianRupeeSign, faPhone, faRupee, faShoppingCart, faSignInAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faBars, faBurger, faHamburger, faIndianRupeeSign, faLocation, faMapLocation, faPhone, faRupee, faShoppingCart, faSignInAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Logo from "./images/logo1.png"
 import GoogleApp from "./images/google-play-badge-logo-png-transparent.png"
@@ -39,55 +39,241 @@ import ReadyToCook from "./images/readytocook.jpg"
 import { Link } from "react-router-dom";
 import Google from "./images/google.jpg"
 import Register from "./Register";
+import SearchProduct from "./SearchProduct";
+import Chicku4 from "./images/Chicken/chiku4.jpg"
+import Chicku6 from "./images/Chicken/chiku6.jpg"
+import Chicku2 from "./images/Chicken/chiku2.jpg"
+import Chicku1 from "./images/Chicken/chiku1.jpg"
+import Chicku8 from "./images/Chicken/chiku8.jpg"
+import Chicku9 from "./images/Chicken/chiku9.jpg"
+import Chicku10 from "./images/Chicken/chiku10.jpg"
+import Chicku11 from "./images/Chicken/chiku11.jpg"
+import Chicku12 from "./images/Chicken/chiku12.jpg"
+import { useSelector } from "react-redux";
+import Send from "./Send";
+import Verify from "./Verify";
+import Success from "./Success";
+import Toast from "./Toast";
+
 
 const HomePage = () => {
 
-    const [otpSent, setOtpSent] = useState(false);
-    const [otpVerified, setOtpVerified] = useState(false);
-    const [countdown, setCountdown] = useState(5);
-    const [inputs, setInputs] = useState(["", "", "", ""]);
-    const [ShowRegister, setShowRegister] = useState(false);
 
-    const handleSendOtp = () => {
-        setOtpSent(true);
-    };
 
-    const handleInputChange = (index, value) => {
-        const newInputs = [...inputs];
-        newInputs[index] = value;
-        setInputs(newInputs);
+    const ChickenData = [
+        {
+            id: 1,
+            img: Chicku1,
+            dish: "Brown Eggs - Pack of 12",
+            description: "Brown Shelled Eggs | Pale Yellow Yolk Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Eggs",
+            Price: "450/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 2,
+            img: Chicku2,
+            dish: "Mud Crab",
+            description: "Three Spotted Crabs that are consistent in size for an even cook.",
+            Title: "Mud Crab",
+            Price: "230/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 3,
+            img: Chicku3,
+            dish: "Lamb Curry Cut",
+            description: "Perfect balance of fat & meat Weight: 500g | 15-22 pieces | Serves 2-3",
+            Title: "Lamb Curry Cut",
+            Price: "570/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 4,
+            img: Chicku4,
+            dish: "Pure Goat Mince",
+            description: "Finely ground goat mince for curries,kebabs & more",
+            Title: "Pure Goat Mince",
+            Price: "980/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 5,
+            img: Chicku5,
+            dish: "Classic Chicken Salami",
+            description: "Sandwiches, salads, canapes, crackers",
+            Title: "Chicken Salami",
+            Price: "130/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 6,
+            img: Chicku6,
+            dish: "Yummy Chicken Cutlets",
+            description: "Melt in your mouth amazing Chicken Cutlets Weight: 160g | 3-5 pieces | Serves 2",
+            Title: "Chicken Cutlets",
+            Price: "250/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 7,
+            img: Chicku7,
+            dish: "Chicken Curry Cut - Large Pieces",
+            description: "Bone-in | Large cuts | Curry Cut Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Chicken Curry Cut",
+            Price: "690/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 8,
+            img: Chicku8,
+            dish: "Chicken Liver",
+            description: "Offal Cuts | Cleaned | Fresh Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Chicken Liver",
+            Price: "560/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 9,
+            img: Chicku9,
+            dish: "Mackerel Medium",
+            description: "Premium grade | Whole fish | Gutted Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Mackerel Fish",
+            Price: "560/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 10,
+            img: Chicku10,
+            dish: "Cage Free Country Eggs - Pack of 12",
+            description: "Eggs from country hens raised outside cages - Pack of 12 Eggs",
+            Title: "Country Eggs",
+            Price: "250/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 11,
+            img: Chicku11,
+            dish: "Cage Free Country Eggs - Pack of 12",
+            description: "Eggs from country hens raised outside cages - Pack of 12 Eggs",
+            Title: "Country Eggs",
+            Price: "250/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: 12,
+            img: Chicku12,
+            dish: "Cage Free Country Eggs - Pack of 12",
+            description: "Eggs from country hens raised outside cages - Pack of 12 Eggs",
+            Title: "Country Eggs",
+            Price: "250/-",
+            Dollar: "4,600$"
+        }
+    ];
 
-        const isAllFilled = newInputs.every((input) => input !== "");
-        if (isAllFilled) {
-            const enteredOtp = newInputs.join("");
-            console.log("Entered OTP:", enteredOtp);
-            setOtpVerified(true);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleSearch = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearchTerm(term);
+        if (term.trim() === '') {
+            setSearchResults([]);
+        } else {
+            const results = ChickenData.filter(product =>
+                product.dish.toLowerCase().includes(term) ||
+                product.Title.toLowerCase().includes(term)
+            );
+            setSearchResults(results);
         }
     };
 
-    useEffect(() => {
-        let timer;
-        if (otpVerified) {
-            timer = setInterval(() => {
-                setCountdown((prevCountdown) => prevCountdown - 1);
-            }, 1000);
+    function acceptNumberOnly() {
+        let number = document.getElementById("phnnumber").value;
+        number = number.replace(/\D/g, '').slice(0, 10);
+        document.getElementById("phnnumber").value = number;
+        if (number.length < 10) {
+            document.getElementById("errormessage").style.display = "block"
+            document.getElementById("errormessage").innerHTML = "Phone number must be 10 digits";
+        } else {
+            document.getElementById("errormessage").style.display = "none"
         }
-        return () => clearInterval(timer);
-    }, [otpVerified]);
+    }
+
+    const [locationDetails, setLocationDetails] = useState(null);
 
     useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
 
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`);
+                        const data = await response.json();
 
-        
-        if (countdown === 0) {
-            // Navigate to Address page after 5 seconds
-            setShowRegister(true);
-        }
-    }, [countdown]);
+                        // Extracting address components
+                        const address = data.address;
+                        const area = address.suburb || address.hamlet || address.area || address.urban;
+                        const city = address.city_district || address.state_district;
+                        const state = address.state || address.region;
+
+                        // Constructing location details string
+                        const locationDetails = `${area}, ${city}, ${state}`;
+                        setLocationDetails(locationDetails);
+                    });
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            } catch (error) {
+                console.error("Error fetching location details:", error);
+            }
+        };
+
+        fetchLocation();
+    }, []);
+
+    const [showLinks, setShowLinks] = useState(false);
+    const [showContacts, setShowContacts] = useState(false);
+    const [showFollows, setShowFollows] = useState(false);
+
+    const toggleLinks = () => {
+        setShowLinks(!showLinks);
+    };
+    const toggleContacts = () => {
+        setShowContacts(!showContacts);
+    };
+    const toggleFollows = () => {
+        setShowFollows(!showFollows);
+    };
+
+    const { showComp, success } = useSelector((state) => state.otp);
+  const [isVerified, setIsVerified] = useState(false);
 
     return (
         <>
-            <div className="container-fluid bg-dark" id={styles.navbar}>
+            <div>
+                {showComp && !isVerified ? (
+                    <div className="modal">
+                        <div className="otp-container">
+                            <Send />
+                        </div>
+                    </div>
+                ) : !showComp && !success ? (
+                    <div className="modal">
+                        <div className="otp-container">
+                            <Verify onClick={() => setIsVerified(true)} />
+                        </div>
+                    </div>
+                ) : (
+                    <Success />
+                )}
+
+                <Toast />
+            </div >
+            <div className={`container-fluid bg-dark d-md-block d-none`} id={styles.navbar}>
                 <div className="row">
                     <div className="col-md-10">
                         <div className="contact-details d-flex mt-2 mx-5" id={styles.contact}>
@@ -102,8 +288,8 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            <section id={styles.border} className="pb-2">
-                <div className="container bg-white mt-2" id={styles.logo}>
+            <section id={styles.border} className={`pb-2 ${styles.navbar1} bg-white d-md-block d-none`}>
+                <div className="container pt-2" id={styles.logo}>
                     <div className="row">
                         <div className="col-md-2 d-inline pt-0">
                             <div className="sidebar_logo">
@@ -111,21 +297,30 @@ const HomePage = () => {
                                     <img src={Logo} alt="img" className='img-fluid w-50' /></Link>
                             </div>
                         </div>
-                        <div className="col-md-2  d-inline mx-5">
-                            <select id={styles.locationselect} className="text-dark rounded">
-                                <option value="#">Location</option>
-                                <option value="bhuvaneshwr">bhuvaneshwr</option>
-                                <option value="bhuvaneshwr">orissa</option>
+                        <div className="col-md-4 d-inline">
+                            <select id={styles.locationselect} className="text-dark rounded" value={locationDetails || ''} disabled>
+                                <option value="">{locationDetails ? locationDetails : 'Fetching location...'}</option>
                             </select>
                         </div>
-                        <div className="col-md-4">
-                            <form action="search_product.php" method="get" className=" d-flex form-group">
-                                <input type="text" className="form-control w-50 px-2" placeholder="Search" name="search_data" aria-label="Search" id={styles.searchbox} />
-                                <a type="submit" className="btn btn-outline-success mx-1 p-1" name="search_data_product" value="search" id={styles.search} >Search</a>
+                        <div className="col-md-3">
+                            <form className="d-flex form-group">
+                                <input
+                                    type="text"
+                                    className="form-control w-50 px-2"
+                                    placeholder="Search"
+                                    name="search_data"
+                                    aria-label="Search"
+                                    value={searchTerm}
+                                    onChange={handleSearch}
+                                    id={styles.searchbox}
+                                />
+                                {/* Remove action attribute from form */}
+                                <button type="submit" className="btn btn-outline-success mx-1 p-1" id={styles.search}>Search</button>
                             </form>
                         </div>
+
                         <div className="col-md-2 d-flex" id={styles.profilesignin}>
-                            <Link to='/Profile.html' className="text-decoration-none d-flex mx-5 text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"> <FontAwesomeIcon icon={faUser} className="mx-1 w-25"></FontAwesomeIcon>
+                            <Link to='/Profile.jsx' className="text-decoration-none d-flex mx-5 text-dark"> <FontAwesomeIcon icon={faUser} className="mx-1 w-25"></FontAwesomeIcon>
                                 Profile</Link>
                             <Link to='/cart.jsx' className="text-decoration-none d-flex text-dark">
                                 <FontAwesomeIcon icon={faShoppingCart} className="mx-1 w-50"></FontAwesomeIcon><sup className="mt-1 fw-bold">1</sup>
@@ -133,134 +328,81 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
-            </section>
-            <div className="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                <div className={`offcanvas-header ${ShowRegister ? 'fade-out' : ''}`}>
-                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div className={`offcanvas-body ${ShowRegister ? 'fade-out' : ''}`}>
-                    <div className="text-center">
-                        <img src={Logo} className="img-fluid w-50" />
-                        <p className="mt-3 text-dark"> <a href="./user_area/user_registration.php" className="fs-5 fw-bolder text-decoration-none text-dark">
-                            Sign Up&nbsp;/&nbsp;</a>
-                            <a className="fs-6" data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" href="javascript:;"></a>
-                            <Link to='/Login.jsx' className="fs-5 fw-bolder text-decoration-none text-dark">Login</Link>
-                        </p>
-                    </div>
-                    <div className="mt-2">
-                        <form action="" method="" className="loginform">
-                            <label id="phnumber" className="text-danger">Mobile Number</label>
-                            <input className="form-control border-1" type="text" name="phnmuner" id="phnnumber" style={{ width: '100%', margin: '2px 0' }} fdprocessedid="tgzud" />
-                            <button className="btn btn w-100 mt-3 text-dark" type="button" style={{ backgroundColor: '#ffde59' }} onClick={handleSendOtp} disabled={otpSent} >{otpSent ? "OTP Sent" : "Send OTP"} </button>
-                        </form>
-                        <div className="container">
-                            {!ShowRegister && (
-                                <div>
-                                    {otpSent && (
-                                        <div className="mt-4 px-5 mx-3 d-flex" style={{ gap: "10px" }}>
-                                            {inputs.map((input, index) => (
-                                                <input key={index} type="text" maxLength="1" className="form-control mb-2 mr-sm-2" style={{ width: "35px" }} value={input} onChange={(e) => handleInputChange(index, e.target.value)} />
-                                            ))}
-                                        </div>
-                                    )}
-                                    {otpVerified && (<p>Opening Register Page in {countdown} seconds...</p>)}
-                                </div>
-                            )}
-                            {ShowRegister && <div className="modal-backdrop fade show"></div>}
-                            {ShowRegister && (
-                                <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" style={{ display: 'block' }}>
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                {/* <h5 className="modal-title" id="exampleModalLabel">Register</h5> */}
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setShowRegister(false)}></button>
-                                            </div>
-                                            <div className="modal-body">
-                                                <Register />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <p className="fs-6 fw-bold text-dark text-center p-2 mt-2">OR Login with Google Account</p>
-                    </div>
-                    <div className="text-center">
-                        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&amp;access_type=online&amp;client_id=112669432284-pbhp3ee08vbhan990fpr40fv4qnag7oo.apps.googleusercontent.com&amp;redirect_uri=http%3A%2F%2Flocalhost%2FDELIAURA%2FDELIAURA%2520-%2520Website-V2%2F&amp;state&amp;scope=email%20profile&amp;approval_prompt=auto">
-                            <img src={Google} className="img-fluid w-25 text-center" /></a>
-                    </div>
-                    <div className="mt-3">
-                        <p className="fs-6 text-center">Shop from anywhere download our app now</p>
-
-                    </div>
+            </section >
+            <section id={styles.border} className={`${styles.navbar1} bg-white d-block d-md-none`}>
+                <div className="container-fluid" id={styles.logo}>
                     <div className="row">
-                        <div className="col-lg-6">
-                            <img src={GoogleApp} className="img-fluid h-75" />
+                        <div className="col-md-12">
+                            <button type="button" className="btn text-left" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <div className="text-left">
+                                    <FontAwesomeIcon className="mx-2 text" icon={faLocation} />
+                                    <Link to='/' className="mx-2 text-decoration-none fs-6 text-dark fw-bold">
+                                        Home
+                                    </Link>
+                                    <FontAwesomeIcon className="mx-2 text" icon={faAngleDown} />
+                                </div>
+                                <div id={styles.locationselect} style={{ fontSize: '13px' }} className="text-dark rounded" value={locationDetails || ''} disabled>
+                                    {locationDetails ? locationDetails : 'Fetching location...'}
+                                </div>
+                            </button>
                         </div>
-                        <div className="col-lg-6">
-                            <img src={AppleStore} className="img-fluid h-75" />
+                        <div className="col-md-4 d-inline d-md-block d-none">
+                            <select id={styles.locationselect} className="text-dark rounded" value={locationDetails || ''} disabled>
+                                <option value="">{locationDetails ? locationDetails : 'Fetching location...'}</option>
+                            </select>
+                        </div>
+                        <div className="col-md-3 d-md-block d-none">
+                            <form action="search_product.php" method="get" className=" d-flex form-group">
+                                <input type="text" className="form-control w-50 px-2" placeholder="Search" name="search_data" aria-label="Search" id={styles.searchbox} />
+                                <a type="submit" className="btn btn-outline-success mx-1 p-1" name="search_data_product" value="search" id={styles.search} >Search</a>
+                            </form>
+                        </div>
+
+                        <div className="col-md-4 d-flex d-md-block d-none" id={styles.profilesignin}>
+                            <Link to='/Profile.html' className="text-decoration-none text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"> <FontAwesomeIcon icon={faUser} className="w-25"></FontAwesomeIcon>
+                                Profile</Link>
+                            <Link to='/cart.jsx' className="text-decoration-none text-dark">
+                                <FontAwesomeIcon icon={faShoppingCart} className="w-50"></FontAwesomeIcon>
+                                cart</Link>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="container" id={styles.categories}>
+            </section >
+            <div className={`container bg-white mt-2 d-md-block d-none ${styles.navbar2}`} id={styles.categories}>
                 <div className="row">
-                    <div className="col-md-12 d-md-block d-none">
-                        <div className="navbar navbar-expand-lg" >
-                            <ul className="navbar-nav">
-                                <li className="nav-item menu-click4">
-                                    <Link to='/chicken.jsx' className="nav-link">CHICKEN
-                                    </Link>
-                                </li>
-                                <li className="nav-item  menu-click5">
-                                    <div class="dropdown" >
-                                        <a class="nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            SEA FOOD
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id={styles.underseafood}>
-                                            <Link to='/SeaFood.jsx' class="dropdown-item" href="#">SEA FOOD</Link>
-                                            <Link to='/Prawns.jsx' class="dropdown-item" href="#">PRAWNS AND CRABS</Link>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to='/Egg.jsx' className="nav-link">EGG</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to='/Mutton.jsx'>MUTTON</Link>
-                                </li>
-                                <li className="nav-item menu-click3">
-                                    <Link className="nav-link" to='/ColdCut.jsx'>COLD CUTS
-                                    </Link>
-                                </li>
-                                <li className="nav-item menu-click">
-                                    <Link className="nav-link" to='/ReadyToCook.jsx'>READY TO COOK
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <div className="dropdown">
-                                        <Link className="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            ALL
-                                        </Link>
-                                        <ul className="dropdown-menu">
-                                            <li><Link to='/chicken.jsx' className="dropdown-item">CHICKEN</Link></li>
-                                            <li><Link to='/SeaFood.jsx' className="dropdown-item">SEA FOOD</Link></li>
-                                            <li><Link to='/Egg.jsx' className="dropdown-item">EGG</Link></li>
-                                            <li><Link to='/Mutton.jsx' className="dropdown-item">MUTTON</Link></li>
-                                            <li><Link to='/Prawns.jsx' className="dropdown-item">PRAWNS & CRABS</Link></li>
-                                            <li><Link to='/ColdCut.jsx' className="dropdown-item">COLD CUTS</Link></li>
-                                            <li><Link to='/ReadyToCook.jsx' className="dropdown-item">READY TO COOK</Link></li>
-                                        </ul>
-                                    </div>
-                                </li>
+                    <div className="col-md-12 d-flex">
+                        <Link to='/chicken.jsx' className="nav-link">CHICKEN</Link>
+                        <div className="dropdown mx-2">
+                            <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">SEA FOOD</a>
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" id={styles.underseafood}>
+                                <li><Link to='/SeaFood.jsx' className="dropdown-item">SEA FOOD</Link></li>
+                                <li><Link to='/Prawns.jsx' className="dropdown-item">PRAWNS AND CRABS</Link></li>
+                            </ul>
+                        </div>
+                        <Link to='/Egg.jsx' className="nav-link mx-2">EGG</Link>
+                        <Link className="nav-link mx-2" to='/Mutton.jsx'>MUTTON</Link>
+                        <Link className="nav-link mx-2" to='/ColdCut.jsx'>COLD CUTS</Link>
+                        <Link className="nav-link mx-2" to='/ReadyToCook.jsx'>READY TO COOK</Link>
+                        <div className="dropdown mx-2">
+                            <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">ALL</Link>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><Link to='/chicken.jsx' className="dropdown-item">CHICKEN</Link></li>
+                                <li><Link to='/SeaFood.jsx' className="dropdown-item">SEA FOOD</Link></li>
+                                <li><Link to='/Egg.jsx' className="dropdown-item">EGG</Link></li>
+                                <li><Link to='/Mutton.jsx' className="dropdown-item">MUTTON</Link></li>
+                                <li><Link to='/Prawns.jsx' className="dropdown-item">PRAWNS & CRABS</Link></li>
+                                <li><Link to='/ColdCut.jsx' className="dropdown-item">COLD CUTS</Link></li>
+                                <li><Link to='/ReadyToCook.jsx' className="dropdown-item">READY TO COOK</Link></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div className="ptb-0" id={[styles.index1, styles.float_left]}>
+            <div className="mt-2 mx-5 px-5">
+                {/* Conditionally render SearchProduct component */}
+                {searchResults.length > 0 && <SearchProduct searchResults={searchResults} />}
+            </div>
+            <div className="ptb-0 mt-3" id={[styles.index1, styles.float_left]}>
                 <div className="container-fluid p-0">
                     <div className="slider-caption wow fadeInUp" data-wow-delay="0.1s" id={styles.slider}>
                         <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
@@ -374,9 +516,9 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            <div id="carouselExampleControls2" className="carousel slide" data-bs-ride="carousel">
-                <div className="carousel-inner" id={styles.selectedproducts}>
-                    <div className="carousel-item active" interval={10}>
+            <div id="carouselExampleControls2" className="carousel slide d-md-block d-none" data-bs-ride="carousel">
+                <div className="carousel-inner container" id={styles.selectedproducts}>
+                    <div className="carousel-item active " interval={10}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-3">
@@ -544,6 +686,229 @@ const HomePage = () => {
                 <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
                 </button>
             </div>
+            <div id="carouselExampleControls2" className="carousel slide d-block d-md-none" data-bs-ride="carousel">
+                <div className="carousel-inner" id={styles.selectedproducts}>
+                    <div className="carousel-item active" interval={10}>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={Chicku3} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Chicken Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹275</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={Chicku7} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Chicken Mince</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹575</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={M6} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Goat Shoulder Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={M6} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Goat Shoulder Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={Chicku3} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Chicken Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹275</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={Chicku7} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Chicken Mince</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹575</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={M6} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Goat Shoulder Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={M6} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Goat Shoulder Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <div className="card shadow" id={styles.carouselwidth}>
+                                        <img src={Chicku3} className="card-img-top rounded" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="">Chicken Curry</h5>
+                                            <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                            <p className="text-dark fw-bold"><small id={styles.rupees}> ₹275</small></p>
+                                            <button className="btn btn-borderless px-2">SHOP</button>
+                                            <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="container"></div>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="card shadow" id={styles.carouselwidth}>
+                                    <img src={Chicku7} className="card-img-top rounded" alt="..." />
+                                    <div className="card-body">
+                                        <h5 className="">Chicken Mince</h5>
+                                        <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                        <p className="text-dark fw-bold"><small id={styles.rupees}> ₹575</small></p>
+                                        <button className="btn btn-borderless px-2">SHOP</button>
+                                        <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="carousel-item">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="card shadow" id={styles.carouselwidth}>
+                                    <img src={M6} className="card-img-top rounded" alt="..." />
+                                    <div className="card-body">
+                                        <h5 className="">Goat Shoulder Curry</h5>
+                                        <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                        <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                        <button className="btn btn-borderless px-2">SHOP</button>
+                                        <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="carousel-item">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="card shadow" id={styles.carouselwidth}>
+                                    <img src={M6} className="card-img-top rounded" alt="..." />
+                                    <div className="card-body">
+                                        <h5 className="">Goat Shoulder Curry</h5>
+                                        <p className="text-dark">Weight: 500gms | 6-7 pieces | Serves 2</p>
+                                        <p className="text-dark fw-bold"><small id={styles.rupees}> ₹815</small></p>
+                                        <button className="btn btn-borderless px-2">SHOP</button>
+                                        <button className="btn btn-borderless mx-1 px-2">KNOW MORE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                </button>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                </button>
+            </div >
             <div className="container mt-4" id={styles.deliauraspecials}>
                 <div className="heading-title about-text float_left d-grid  gap-2 d-sm-flex justify-content-sm-start mt-1">
                     <h1 className="title" id={styles.shopbycategories}>Deliaura Specilals (Offers Available)</h1>
@@ -1121,7 +1486,7 @@ const HomePage = () => {
 
                         </div>
                     </div>
-                    <div className="col-md-3 mt-1 justify-content-center align-items-center text-left">
+                    <div className="col-md-3 mt-1 justify-content-center d-md-block d-none align-items-center text-left">
                         <div className={styles.widgettitle}>
                             <div className="link-page justify-content-center">
 
@@ -1147,14 +1512,61 @@ const HomePage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 mt-1" id={styles.card}>
+                    <div className="col-md-3 mt-1 d-block d-md-none d-inline text-left">
+                        <div className={styles.widgettitle}>
+                            <div className="col-md-6">
+                                <div className="d-flex">
+                                    <h4 className=" mt-2 mx-4 px-5">QUICK LINKS
+                                        <button className="border-0 bg-white fw-bold fs-6 mt-1" onClick={toggleLinks}>
+                                            {showLinks ? '⮛' : '⮙'}
+                                        </button>
+                                    </h4>
+                                </div>
+                                {showLinks && (
+                                    <ul className="mx-5 text-left" style={{ border: 'none', marginLeft: '-30px', marginTop: '-10px' }}>
+                                        <li className="">
+                                            <a href="#" className="text-decoration-none text-dark">FAQ</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-right-sidebar.html" className="text-decoration-none text-dark">Blog</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-single-left-sidebar.html" className="text-decoration-none text-dark">Terms & Conditions</a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-single-right-sidebar.html" className="text-decoration-none text-dark">Privacy Policy</a>
+                                        </li>
+                                        <li>
+                                            <a href="privacy.html" className="text-decoration-none text-dark">Refund Policy</a>
+                                        </li>
+                                    </ul>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-3 mt-1 d-md-block d-none" id={styles.card}>
                         <div className="text-left" id={styles.link}>
                             <span className="fw-bold">Contact Us</span>
                             <h6 className="mt-1 text-dark">+91 63810 05442</h6>
                             <a href="mailto:customercare@deliuara.com" className="text-center text-decoration-none text-dark">customercare@deliaura.com</a>
                         </div>
                     </div>
-                    <div className="col-md-3 mt-1" id={styles.card}>
+                    <div className="col-md-3 d-block d-md-none" id={styles.card}>
+                        <div className="text-left mx-4 px-5" id={styles.link}>
+                            <span className="fw-bold">CONTACT US
+                                <button className="border-0 bg-white fw-bold fs-6" onClick={toggleContacts}>
+                                    {showContacts ? '⮛' : '⮙'}
+                                </button>
+                            </span>
+                            {showContacts && (
+                                <ul className="mt-3" style={{ border: 'none', marginLeft: '-30px', marginTop: '-10px' }}>
+                                    <li className=""><h6 className="mt-1 text-dark">+91 63810 05442</h6></li>
+                                    <li><a href="mailto:customercare@deliuara.com" className="text-center text-decoration-none text-dark">customercare@deliaura.com</a></li>
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                    <div className="col-md-3 mt-1 d-md-block d-none" id={styles.card}>
                         <div className="text-left" id={styles.link}>
                             <span className="fw-bold mt-2">Follow Us On</span>
                             <div className="d-flex flex-wrap d-inline text-left" id={styles.imgftr}>
@@ -1172,6 +1584,31 @@ const HomePage = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-3 mt-1 d-md-none d-block" id={styles.card}>
+                        <div className="text-left d-flex mx-4 px-5" id={styles.link}>
+                            <div className="row justify-content-center">
+                                <div className="col-md-6">
+                                    <div className="d-flex">
+                                        <span className="fw-bold mt-2">Follow Us On
+                                            <button className="border-0 bg-white fw-bold fs-6" onClick={toggleFollows}>
+                                                {showFollows ? '⮛' : '⮙'}
+                                            </button>
+                                        </span>
+                                    </div>
+                                    {showFollows && (
+                                        <ul className="mt-3" style={{ border: 'none', marginLeft: '-30px', marginTop: '-10px' }}>
+                                            <li className="">
+                                                <Link className="mx-0"><IoLogoFacebook style={{ fontSize: '20px', color: 'black' }}></IoLogoFacebook></Link>
+                                                <Link className="mx-1"><IoLogoTwitter style={{ fontSize: '20px', color: 'black' }}></IoLogoTwitter></Link>
+                                                <Link className="mx-1"><IoLogoInstagram style={{ fontSize: '20px', color: 'black' }}></IoLogoInstagram></Link>
+                                                <Link className="mx-1"><IoLogoYoutube style={{ fontSize: '20px', color: 'black' }}></IoLogoYoutube></Link>
+                                            </li>
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="container-fluid bg-dark text-white mt-4">
@@ -1179,16 +1616,14 @@ const HomePage = () => {
                     <div className="col-md-12">
                         <div className="d-flex pt-1 align-items-center justify-content-center" id={styles.footer}>
                             <a className="text-light text-decoration-none">Copyright 2024 © </a>
-                            <a href="#" className="text-decoration-none">Deliaura | Meat Shop online | All Rights Reserved</a>
-                            <a className="text-light text-decoration-none">Designed By</a>
-                            <a href="www.akvtechnologies.com" target="_blank" className="text-decoration-none">AKV Technologies</a>
+                            <a href="#" className="text-decoration-none d-md-block d-none">Deliaura | Meat Shop online | All Rights Reserved</a>
+                            <a className="text-light text-decoration-none d-md-block d-none">Designed By</a>
+                            <a href="www.akvtechnologies.com" target="_blank" className="text-decoration-none d-md-block d-none">AKV Technologies</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
-
     )
 }
 

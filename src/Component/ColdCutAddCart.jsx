@@ -29,7 +29,11 @@ import Review1 from "./images/review-1.avif"
 import Review2 from "./images/review-2.avif"
 
 
-const ChickenAddCart = () => {
+const ColdCutAddCart = () => {
+
+    // Fetching data to display
+    let setDataString = sessionStorage.getItem('setData');
+    let setData = JSON.parse(setDataString);
 
     
 
@@ -276,8 +280,8 @@ const ChickenAddCart = () => {
                 <div className="row">
                     <div className="col-md-12 d-flex">
                         <Link to='/' className="text-decoration-none text-dark mx-2">HOME  <FontAwesomeIcon icon={faAngleRight} className="mx-1" style={{ fontSize: '12px' }}></FontAwesomeIcon> </Link>
-                        <Link to='/chicken.jsx' className="text-decoration-none text-dark mx-1">CHICKEN <FontAwesomeIcon icon={faAngleRight} className="mx-1" style={{ fontSize: '12px' }}></FontAwesomeIcon></Link>
-                        <Link to='/ChickenAddCart.jsx' className="text-decoration-none text-dark mx-1">CHICKEN ADD CART</Link>
+                        <Link to='/ColdCut.jsx' className="text-decoration-none text-dark mx-1">COLD CUTS<FontAwesomeIcon icon={faAngleRight} className="mx-1" style={{ fontSize: '12px' }}></FontAwesomeIcon></Link>
+                        <Link to='/ColdCutAddCart.jsx' className="text-decoration-none text-dark mx-1">COLD CUTS ADD CART</Link>
                     </div>
                 </div>
             </div>
@@ -288,15 +292,15 @@ const ChickenAddCart = () => {
                     <div className="row g-4 mb-5">
                         <div className="col-lg-8 col-xl-9">
                             <div className="row g-4">
-                                <div className="col-lg-6">
+                            <div className="col-lg-6">
                                     <div className="border rounded">
                                         <a href="#">
-                                            <img src={Chicku12} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
+                                            <img src={setData.img} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
                                         </a>
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
-                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>Premium Mackerel [Bangda/ Kanangeluthi/ Kanakatha/ Ayala Small] - Whole, Cleaned</h6>
+                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>{setData.dish}</h6>
                                     <p className="category mb-3" id={styles.cart_category}>Category: Fish</p>
                                     <h5 className="price fw-bold mb-3" id={styles.cart_price}>₹ 815</h5>
                                     <div className="d-flex mb-2" id={styles.cart_ratings} >
@@ -677,4 +681,4 @@ const ChickenAddCart = () => {
 
 }
 
-export default ColdAddCart
+export default ColdCutAddCart;

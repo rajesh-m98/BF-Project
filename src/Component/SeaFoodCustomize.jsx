@@ -275,8 +275,8 @@ const SeaFoodCustomize = () => {
                 <div aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><Link className="text-decoration-none text-dark mx-2" to='/'>HOME</Link></li>
-                        <li class="breadcrumb-item active" aria-current="page"><Link className="text-decoration-none text-dark" to='/chicken.jsx'>CHICKEN</Link></li>
-                        <li class="breadcrumb-item active" aria-current="page"><Link className="text-decoration-none text-dark">CHICKEN CURRY (WITH SKIN)</Link></li>
+                        <li class="breadcrumb-item active" aria-current="page"><Link className="text-decoration-none text-dark" to='/SeaFood.jsx'>SEA FOOD</Link></li>
+                        <li class="breadcrumb-item active" aria-current="page"><Link className="text-decoration-none text-dark">FISH SALMAON </Link></li>
 
                     </ol>
                 </div>
@@ -293,7 +293,7 @@ const SeaFoodCustomize = () => {
                         </div>
                     </div>
                     <div className="col-lg-5">
-                        <h6 className="fw-semibold mb-1" id={styles.cart_item}>Chicken With Bones-500gms</h6>
+                        <h6 className="fw-semibold mb-1" id={styles.cart_item}>Salmon Fish - Mild Flavour</h6>
                         <a href="#" class="text-decoration-none text-dark mb-2" ><span id={styles.rate}>₹350 Per Pack <span style={{ textDecoration: 'line-through' }} class="px-2">₹399</span></span></a>
                         <div class="mt-2 fw-bold fs-7" id={styles.totalprice}>(Total Price:238)</div>
                         <div className="mt-2">

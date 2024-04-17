@@ -24,6 +24,105 @@ import CC9 from "./images/coldcut/c9.jpg"
 
 const ColdCut = () => {
 
+    const products = [
+        {
+            id: '1',
+            img: CC1,
+            dish: "Cage Free Country Eggs - Pack of 12",
+            description: "Eggs from country hens raised outside cages - Pack of 12 Eggs",
+            Title: "Country Eggs",
+            Price: "250/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '2',
+            img: CC2,
+            dish: "Mud Crab",
+            description: "Three Spotted Crabs that are consistent in size for an even cook.",
+            Title: "Mud Crab",
+            Price: "230/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '3',
+            img: CC3,
+            dish: "Lamb Curry Cut",
+            description: "Perfect balance of fat & meat Weight: 500g | 15-22 pieces | Serves 2-3",
+            Title: "Lamb Curry Cut",
+            Price: "570/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '4',
+            img: CC4,
+            dish: "Pure Goat Mince",
+            description: "Finely ground goat mince for curries, kebabs & more",
+            Title: "Pure Goat Mince",
+            Price: "980/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '5',
+            img: CC5,
+            dish: "Classic Chicken Salami",
+            description: "Sandwiches, salads, canapes, crackers",
+            Title: "Chicken Salami",
+            Price: "130/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '6',
+            img: CC6,
+            dish: "Yummy Chicken Cutlets",
+            description: "Melt in your mouth amazing Chicken Cutlets Weight: 160g | 3-5 pieces | Serves 2",
+            Title: "Chicken Cutlets",
+            Price: "250/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '7',
+            img: CC7,
+            dish: "Chicken Curry Cut - Large Pieces",
+            description: "Bone-in | Large cuts | Curry Cut Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Chicken Curry Cut",
+            Price: "690/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '8',
+            img: CC8,
+            dish: "Chicken Liver",
+            description: "Offal Cuts | Cleaned | Fresh Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Chicken Liver",
+            Price: "560/-",
+            Dollar: "4,600$"
+        },
+        {
+            id: '9',
+            img: CC9,
+            dish: "Mackerel Medium",
+            description: "Premium grade | Whole fish | Gutted Weight: 500gms | 6-7 pieces | Serves 2",
+            Title: "Mackerel Fish",
+            Price: "560/-",
+            Dollar: "4,600$"
+        }
+    ];
+
+    let setData = {}; // Initializing-empty object
+    function addCart(count) {
+        for (let i = 0; i <= products.length - 1; i++) {
+            if (products[i].id == count) {
+                setData = products[i];
+                break;
+            }
+        }
+        // console.log(setData);
+        sessionStorage.setItem('setData', JSON.stringify(setData));
+        window.location.href = "./ColdCutAddCart.jsx";
+
+    }
+
+
     const [otpSent, setOtpSent] = useState(false);
     const [otpVerified, setOtpVerified] = useState(false);
     const [countdown, setCountdown] = useState(5);
@@ -241,7 +340,7 @@ const ColdCut = () => {
             <div className="container mt-2">
                 <div className="row">
                     <div className="col-md-12 d-flex mx-1">
-                        <Link to='/' className="text-decoration-none text-dark">HOME  <FontAwesomeIcon icon={faAngleRight} className="mx-1" style={{fontSize:'12px'}}></FontAwesomeIcon> </Link>
+                        <Link to='/' className="text-decoration-none text-dark">HOME  <FontAwesomeIcon icon={faAngleRight} className="mx-1" style={{ fontSize: '12px' }}></FontAwesomeIcon> </Link>
                         <Link to='/ColdCut.jsx' className="text-decoration-none text-dark mx-1">COLD CUTS</Link>
                     </div>
                 </div>
@@ -252,18 +351,18 @@ const ColdCut = () => {
                     <div className="col-md-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC1} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
+                                <img src={products[0].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Brown Eggs - Pack of 12</a>
-                            <p className="product-text" id={styles.productdescription}>Brown Shelled Eggs | Pale Yellow Yolk Weight: 500gms | 6-7 pieces | Serves 2</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Eggs</p>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[0].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[0].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[0].Title}</p>
                             <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>450/- <strike id={styles.lowprice}> 4,600$</strike></span></a>
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[0].Price} <strike id={styles.lowprice}> {products[0].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenCustomize.jsx' id={styles.button} className="btn text-white col-md-4">Customize</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('1') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -271,18 +370,18 @@ const ColdCut = () => {
                     <div className="col-md-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC2} alt="Mud Crab" className="img img-fluid w-100 rounded" />
+                                <img src={products[1].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Mud Crab</a>
-                            <p className="product-text" id={styles.productdescription}>Three Spotted Crabs that are consistent in size for an even cook. </p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Mud Crab</p>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[1].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[1].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[1].Title}</p>
                             <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>230/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[1].Price} <strike id={styles.lowprice}> {products[1].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('2') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -290,18 +389,18 @@ const ColdCut = () => {
                     <div className="col-md-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC3} alt="Lamb Curry Cut" className="img img-fluid w-100 rounded" />
+                                <img src={products[2].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Lamb Curry Cut</a>
-                            <p className="product-text" id={styles.productdescription}>Perfect balance of fat &amp; meat Weight: 500g | 15-22 pieces | Serves 2-3</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Lamb Curry Cut</p>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[2].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[2].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[2].Title}</p>
                             <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>570/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[2].Price} <strike id={styles.lowprice}> {products[2].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('3') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -309,18 +408,18 @@ const ColdCut = () => {
                     <div className="col-md-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC4} alt="Pure Goat Mince" className="img img-fluid w-100 rounded" />
+                                <img src={products[3].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Pure Goat Mince</a>
-                            <p className="product-text" id={styles.productdescription}>Finely ground goat mince for curries,kebabs &amp; more</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Pure Goat Mince</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>980/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[3].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[3].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[3].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[3].Price} <strike id={styles.lowprice}> {products[3].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('4') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -328,18 +427,18 @@ const ColdCut = () => {
                     <div className="col-md-3 mt-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC5} alt="Classic Chicken Salami" className="img img-fluid w-100 rounded" />
+                                <img src={products[4].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Classic Chicken Salami</a>
-                            <p className="product-text" id={styles.productdescription}>dgcfvhbjnkm, fcvghbjnkml,Sandwiches, salads, canapes, crackers</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Chicken Salami</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>130/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[4].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[4].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[4].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[4].Price} <strike id={styles.lowprice}> {products[4].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('5') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -347,18 +446,18 @@ const ColdCut = () => {
                     <div className="col-md-3 mt-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC6} alt="Yummy Chicken Cutlets" className="img img-fluid w-100 rounded" />
+                                <img src={products[5].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Yummy Chicken Cutlets</a>
-                            <p className="product-text" id={styles.productdescription}>Melt in your mouth amazing Chicken Cutlets Weight: 160g | 3-5 pieces | Serves 2</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Chicken Cutlets</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>250/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[5].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[5].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[5].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[5].Price} <strike id={styles.lowprice}> {products[5].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('6') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
@@ -366,117 +465,60 @@ const ColdCut = () => {
                     <div className="col-md-3 mt-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC7} alt="Chicken Curry Cut - Large Pieces" className="img img-fluid w-100 rounded" />
+                                <img src={products[6].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Chicken Curry Cut - Pieces</a>
-                            <p className="product-text" id={styles.productdescription}>Bone-in | Large cuts | Curry Cut Weight: 500gms | 6-7 pieces | Serves 2</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Chicken Curry Cut </p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>690/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[6].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[6].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[6].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[6].Price} <strike id={styles.lowprice}> {products[6].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('7') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className="col-md-3 mt-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC8} alt="Chicken Liver" className="img img-fluid w-100 rounded" />
+                                <img src={products[7].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Chicken Liver</a>
-                            <p className="product-text" id={styles.productdescription}>Offal Cuts | Cleaned | Fresh Weight: 500gms | 6-7 pieces | Serves 2</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Chicken Liver</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>560/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[7].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[7].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[7].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[7].Price} <strike id={styles.lowprice}> {products[7].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('8') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className="col-md-3 mt-3" id={styles.card}>
                         <div className="product-thumbnail">
                             <a href="javascript:;">
-                                <img src={CC9} alt="Mackerel Medium" className="img img-fluid w-100 rounded" />
+                                <img src={products[8].img} alt="Brown Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
                             </a>
                         </div>
                         <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Mackerel Medium</a>
-                            <p className="product-text" id={styles.productdescription}>Premium grade | Whole fish | Gutted Weight: 500gms | 6-7 pieces | Serves 2</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Mackerel Fish</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>560/- <strike id={styles.lowprice}>4,600$</strike></span></a>
+                            <a href="product-single.html" id={styles.producttitle} title="Beef">{products[8].dish}</a>
+                            <p className="product-text" id={styles.productdescription}>{products[8].description}</p>
+                            <p className="p-1 text-center" id={styles.offerproductname}>{products[8].Title}</p>
+                            <div className="d-grid mt-1 d-sm-flex justify-content-start justify-content-sm-center">
+                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>{products[8].Price} <strike id={styles.lowprice}> {products[8].Dollar}</strike></span></a>
                             </div>
                             <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
+                                <Link to='/ColdCutAddCart.jsx' id={styles.button} className="btn text-white col-md-4" onClick={() => { addCart('9') }}>Add Cart</Link>
                                 <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
                             </div>
                         </div>
-                    </div >
-                    <div className="col-md-3 mt-3" id={styles.card}>
-                        <div className="product-thumbnail">
-                            <a href="javascript:;">
-                                <img src={CC1} alt="Cage Free Country Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
-                            </a>
-                        </div>
-                        <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Cage Free Country </a>
-                            <p className="product-text" id={styles.productdescription}>Eggs from country hens raised outside cages - Pack of 12 Eggs</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Country Eggs</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>250/- <strike id={styles.lowprice}>4,600$</strike></span></a>
-                            </div>
-                            <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
-                                <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
-                            </div>
-                        </div>
-                    </div >
-                    <div className="col-md-3 mt-3" id={styles.card}>
-                        <div className="product-thumbnail">
-                            <a href="javascript:;">
-                                <img src={CC2} alt="Cage Free Country Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
-                            </a>
-                        </div>
-                        <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Cage Free Country </a>
-                            <p className="product-text" id={styles.productdescription}>Eggs from country hens raised outside cages - Pack of 12 Eggs</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Country Eggs</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>250/- <strike id={styles.lowprice}>4,600$</strike></span></a>
-                            </div>
-                            <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
-                                <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
-                            </div>
-                        </div>
-                    </div >
-                    <div className="col-md-3 mt-3" id={styles.card}>
-                        <div className="product-thumbnail">
-                            <a href="javascript:;">
-                                <img src={CC3} alt="Cage Free Country Eggs - Pack of 12" className="img img-fluid w-100 rounded" />
-                            </a>
-                        </div>
-                        <div className="card-body">
-                            <a href="product-single.html" id={styles.producttitle} title="Beef">Cage Free Country </a>
-                            <p className="product-text" id={styles.productdescription}>Eggs from country hens raised outside cages - Pack of 12 Eggs</p>
-                            <p className="p-1 text-center" id={styles.offerproductname}>Country Eggs</p>
-                            <div className="d-grid mt-3 d-sm-flex justify-content-start justify-content-sm-center">
-                                <a href="#" className="px-0"><span className="product-price" id={styles.originalprice}>250/- <strike id={styles.lowprice}>4,600$</strike></span></a>
-                            </div>
-                            <div className="mt-2">
-                                <Link to='/ChickenAddCart.jsx' id={styles.button} className="btn text-white col-md-4">Add Cart</Link>
-                                <a href="chickenaddcart.php?product_id=29" id={styles.button} className="btn text-white mx-3 col-md-5">View More</a>
-                            </div>
-                        </div>
-                    </div >
+                    </div>
                     <div className="text-center mt-5 mb-5">
                         <a href="#" className="btn rounded text-white px-2" id={styles.button}>View All</a>
                     </div>

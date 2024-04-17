@@ -33,6 +33,10 @@ import Review2 from "./images/review-2.avif"
 
 const SeaFoodAddCart = () => {
 
+
+    let setDataString = sessionStorage.getItem('setData');
+    let setData = JSON.parse(setDataString);
+
     const settings = {
         autoplay: true,
         slidesToShow: 4,
@@ -288,17 +292,17 @@ const SeaFoodAddCart = () => {
                     <div className="row g-4 mb-5">
                         <div className="col-lg-8 col-xl-9">
                             <div className="row g-4">
-                                <div className="col-lg-6">
+                               <div className="col-lg-6">
                                     <div className="border rounded">
                                         <a href="#">
-                                            <img src={F12} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
+                                            <img src={setData.img} className="img-responsive rounded w-100" alt="Image" id={styles.cart_image} />
                                         </a>
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
-                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>Premium Mackerel [Bangda/ Kanangeluthi/ Kanakatha/ Ayala Small] - Whole, Cleaned</h6>
-                                    <p className="category mb-3" id={styles.cart_category}>Category: Fish</p>
-                                    <h5 className="price fw-bold mb-3" id={styles.cart_price}>₹ 815</h5>
+                                    <h6 className="fw-semibold mb-1" id={styles.cart_item}>{setData.dish}</h6>
+                                    <p className="category mb-3" id={styles.cart_category}>Category: {setData.Title}</p>
+                                    <h5 className="price fw-bold mb-3" id={styles.cart_price}>₹ {setData.Price}</h5>
                                     <div className="d-flex mb-2" id={styles.cart_ratings} >
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
@@ -306,7 +310,7 @@ const SeaFoodAddCart = () => {
                                         <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                                         <FontAwesomeIcon icon={faStarHalfStroke}></FontAwesomeIcon>
                                     </div>
-                                    <p className="mb-2"><small>Deliaura of chicken, straight from the farm. No antibiotics, growth promoting hormones or any of the bad stuff. Naturally reared for tastier meat. Cleaned and cut in a state-of-the-art HACCP certified processing centre.</small></p>
+                                    <p className="mb-2"><small>{setData.description}</small></p>
                                     <div className="input-group quantity mb-3" id={styles.cart_buttonGroup}>
                                         <div className="input-group-btn">
                                             <button className="btn rounded-circle btn-borderless border p-1 text-white py-0" id={styles.cart_button} onClick={decrementQuantity}>
@@ -320,8 +324,9 @@ const SeaFoodAddCart = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <Link to='/SeaFoodCustomize.jsx' className="btn btn-borderless rounded btn-sm" id={styles.cart_buyButton}>BUY NOW</Link>
+                                    <Link to='/ProceedPay.jsx' className="btn btn-borderless rounded btn-sm" id={styles.cart_buyButton}>BUY NOW</Link>
                                 </div>
+                              
                                 <div className="col-lg-12">
                                     <nav>
                                         <div className="nav nav-tabs mb-3">

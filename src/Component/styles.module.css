@@ -70,10 +70,20 @@
 }
 
 
-#navbar {
+.navbar1 {
     top: 0;
     position: sticky;
     z-index: 99;
+}
+
+/* 
+.navbar2 {
+    top: 47px;
+    position: sticky;
+    z-index: 99;
+} */
+
+#navbar {
 
     FontAwesomeIcon {
         font-size: 11.375px;
@@ -358,7 +368,7 @@ ul {
     .card {
         height: 74vh;
     }
-    
+
 }
 
 #extra {
@@ -368,9 +378,11 @@ ul {
         border-radius: 15px;
         background: transparent;
     }
+
     a {
         font-size: 12px;
     }
+
     input [type="checkbox"] {
         color: red;
     }
@@ -802,24 +814,10 @@ ul {
 }
 
 .profilesubmit {
-    background-color: #d02323;
+    background-color: #128135;
 }
 
 /* -----------Update Profile--------- */
-/* @media screen and (max-width:397px) {
-    #footer {
-        display: none;
-    }
-
-    #navbar {
-        display: none;
-    }
-
-    * {
-        flex-direction: column;
-    }
-
-} */
 
 #customizeimg {
     input {
@@ -923,9 +921,12 @@ ul {
 }
 
 #carttable {
-    tr, td {
+
+    tr,
+    td {
         border: 1px solid black;
     }
+
     button {
         font-size: 10px;
     }
@@ -936,8 +937,70 @@ ul {
         button {
             font-size: 13px;
         }
-        
-        
+
+
     }
-   
+
+}
+
+#googleimage {
+    margin-top: 0;
+    width: 30px;
+}
+
+#sidebarmenu {
+    button {
+        font-size: 13px;
+    }
+}
+
+.editaddress:hover {
+    background-color: rgb(58, 199, 255);
+    color: white;
+}
+
+@media screen and (max-width:397px) {
+    #footer {
+        display: none;
+    }
+
+    #navbar {
+        flex-direction: column;
+    }
+
+    * {
+        flex-direction: column;
+    }
+
+    #shopbycategories {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .slickslider {
+        button {
+            font-size: 12.25px;
+            background-color: #efb00f;
+            box-shadow: 2px 2px 2px #a3a6a9;
+        }
+
+        height: 100%;
+
+        
+            width: 180px;
+            margin-right: 10px;
+
+        .card {
+            height: 90vh;
+            
+        }
+
+    }
+
+    #deliauraspecials {
+        #card {
+            margin-top: 10px;
+        }
+    }
+
 }
