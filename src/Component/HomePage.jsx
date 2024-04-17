@@ -250,7 +250,7 @@ const HomePage = () => {
     };
 
     const { showComp, success } = useSelector((state) => state.otp);
-  const [isVerified, setIsVerified] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
 
     return (
         <>
